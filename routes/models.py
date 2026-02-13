@@ -12,3 +12,12 @@ class FuelStation(models.Model):
 
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["state", "city", "retail_price"]
+        indexes = [
+            models.Index(fields=["state", "retail_price"]),
+        ]
+
+    def __str__(self):
+        return f"{self.truck_stop_name} ({self.city}, {self.state})"

@@ -23,7 +23,7 @@ A Django REST API that returns a route between two US locations, optimal fuel-st
 ## Project Structure
 
 ```text
-fuel_route_planner/
+![1770962542814](image/README/1770962542814.png)![1770962545678](image/README/1770962545678.png)![1770962550196](image/README/1770962550196.png)fuel_route_planner/
 ├── fuel_route_planner/     # Project settings, URLs
 ├── routes/                 # Main app
 │   ├── data/              # Fuel prices CSV

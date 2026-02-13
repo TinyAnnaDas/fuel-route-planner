@@ -1,0 +1,463 @@
+{
+    "geocoding": {
+        "version": "0.2",
+        "attribution": "https://openrouteservice.org/terms-of-service/#attribution-geocode",
+        "query": {
+            "text": "Namibian Brewery",
+            "size": 10,
+            "layers": [
+                "venue",
+                "street",
+                "country",
+                "macroregion",
+                "region",
+                "county",
+                "localadmin",
+                "locality",
+                "borough",
+                "neighbourhood",
+                "continent",
+                "empire",
+                "dependency",
+                "macrocounty",
+                "macrohood",
+                "microhood",
+                "disputed",
+                "postalcode",
+                "ocean",
+                "marinearea"
+            ],
+            "private": false,
+            "lang": {
+                "name": "English",
+                "iso6391": "en",
+                "iso6393": "eng",
+                "via": "header",
+                "defaulted": false
+            },
+            "querySize": 20,
+            "parser": "pelias",
+            "parsed_text": {
+                "subject": "Namibian Brewery",
+                "venue": "Namibian Brewery"
+            }
+        },
+        "warnings": [
+            "performance optimization: excluding 'address' layer"
+        ],
+        "engine": {
+            "name": "Pelias",
+            "author": "Mapzen",
+            "version": "1.0"
+        },
+        "timestamp": 1770966992960
+    },
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    16.646344,
+                    -20.459019
+                ]
+            },
+            "properties": {
+                "id": "node/4684870705",
+                "gid": "openstreetmap:venue:node/4684870705",
+                "layer": "venue",
+                "source": "openstreetmap",
+                "source_id": "node/4684870705",
+                "name": "Namibian Brewery",
+                "confidence": 1,
+                "match_type": "exact",
+                "accuracy": "point",
+                "country": "Namibia",
+                "country_gid": "whosonfirst:country:85632535",
+                "country_a": "NAM",
+                "region": "Otjozondjupa",
+                "region_gid": "whosonfirst:region:85675217",
+                "region_a": "OD",
+                "county": "Otjiwarongo",
+                "county_gid": "whosonfirst:county:421186163",
+                "county_a": "OW",
+                "continent": "Africa",
+                "continent_gid": "whosonfirst:continent:102191573",
+                "label": "Namibian Brewery, OD, Namibia"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    17.084177,
+                    -22.56012
+                ]
+            },
+            "properties": {
+                "id": "node/811183175",
+                "gid": "openstreetmap:venue:node/811183175",
+                "layer": "venue",
+                "source": "openstreetmap",
+                "source_id": "node/811183175",
+                "name": "Namibian Police",
+                "confidence": 1,
+                "match_type": "exact",
+                "accuracy": "point",
+                "country": "Namibia",
+                "country_gid": "whosonfirst:country:85632535",
+                "country_a": "NAM",
+                "region": "Khomas",
+                "region_gid": "whosonfirst:region:85675205",
+                "region_a": "KH",
+                "locality": "Windhoek",
+                "locality_gid": "whosonfirst:locality:1141909361",
+                "continent": "Africa",
+                "continent_gid": "whosonfirst:continent:102191573",
+                "label": "Namibian Police, Windhoek, KH, Namibia",
+                "addendum": {
+                    "osm": {
+                        "operator": "GRN"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    17.082562,
+                    -22.561998
+                ]
+            },
+            "properties": {
+                "id": "node/8830507327",
+                "gid": "openstreetmap:venue:node/8830507327",
+                "layer": "venue",
+                "source": "openstreetmap",
+                "source_id": "node/8830507327",
+                "name": "The Namibian",
+                "confidence": 1,
+                "match_type": "exact",
+                "accuracy": "point",
+                "country": "Namibia",
+                "country_gid": "whosonfirst:country:85632535",
+                "country_a": "NAM",
+                "region": "Khomas",
+                "region_gid": "whosonfirst:region:85675205",
+                "region_a": "KH",
+                "locality": "Windhoek",
+                "locality_gid": "whosonfirst:locality:1141909361",
+                "continent": "Africa",
+                "continent_gid": "whosonfirst:continent:102191573",
+                "label": "The Namibian, Windhoek, KH, Namibia",
+                "addendum": {
+                    "osm": {
+                        "website": "https://www.namibian.com.na/",
+                        "phone": "+264 61 279600"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    17.087509,
+                    -22.579487
+                ]
+            },
+            "properties": {
+                "id": "way/917792955",
+                "gid": "openstreetmap:venue:way/917792955",
+                "layer": "venue",
+                "source": "openstreetmap",
+                "source_id": "way/917792955",
+                "name": "Namibian Police Force Headquarter",
+                "street": "Julius Nyerere Street",
+                "confidence": 1,
+                "match_type": "exact",
+                "accuracy": "point",
+                "country": "Namibia",
+                "country_gid": "whosonfirst:country:85632535",
+                "country_a": "NAM",
+                "region": "Khomas",
+                "region_gid": "whosonfirst:region:85675205",
+                "region_a": "KH",
+                "locality": "Windhoek",
+                "locality_gid": "whosonfirst:locality:1141909361",
+                "continent": "Africa",
+                "continent_gid": "whosonfirst:continent:102191573",
+                "label": "Namibian Police Force Headquarter, Windhoek, KH, Namibia",
+                "addendum": {
+                    "osm": {
+                        "wikidata": "Q2101659",
+                        "wikipedia": "en:Namibian Police Force",
+                        "operator": "NAMPOL",
+                        "website": "https://nampol.gov.na"
+                    }
+                }
+            },
+            "bbox": [
+                17.086516,
+                -22.5801036,
+                17.0883757,
+                -22.5786245
+            ]
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.516254,
+                    -22.94544
+                ]
+            },
+            "properties": {
+                "id": "node/9966039074",
+                "gid": "openstreetmap:venue:node/9966039074",
+                "layer": "venue",
+                "source": "openstreetmap",
+                "source_id": "node/9966039074",
+                "name": "Namibian Pie Company",
+                "confidence": 1,
+                "match_type": "exact",
+                "accuracy": "point",
+                "country": "Namibia",
+                "country_gid": "whosonfirst:country:85632535",
+                "country_a": "NAM",
+                "region": "Erongo",
+                "region_gid": "whosonfirst:region:85675213",
+                "region_a": "ER",
+                "county": "Walvis Bay Urban",
+                "county_gid": "whosonfirst:county:890443131",
+                "county_a": "WU",
+                "continent": "Africa",
+                "continent_gid": "whosonfirst:continent:102191573",
+                "label": "Namibian Pie Company, ER, Namibia",
+                "addendum": {
+                    "osm": {
+                        "opening_hours": "Mo-Fr 07:00-04:00"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.84855,
+                    -28.11759
+                ]
+            },
+            "properties": {
+                "id": "node/6947262685",
+                "gid": "openstreetmap:venue:node/6947262685",
+                "layer": "venue",
+                "source": "openstreetmap",
+                "source_id": "node/6947262685",
+                "name": "Namibian Border Control",
+                "confidence": 1,
+                "match_type": "exact",
+                "accuracy": "point",
+                "country": "Namibia",
+                "country_gid": "whosonfirst:country:85632535",
+                "country_a": "NAM",
+                "region": "Karas",
+                "region_gid": "whosonfirst:region:85675195",
+                "region_a": "KA",
+                "county": "Karas",
+                "county_gid": "whosonfirst:county:1108785097",
+                "county_a": "KA",
+                "continent": "Africa",
+                "continent_gid": "whosonfirst:continent:102191573",
+                "label": "Namibian Border Control, KA, Namibia"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    16.645597,
+                    -20.467272
+                ]
+            },
+            "properties": {
+                "id": "way/473387616",
+                "gid": "openstreetmap:venue:way/473387616",
+                "layer": "venue",
+                "source": "openstreetmap",
+                "source_id": "way/473387616",
+                "name": "Museum of Namibian Fashion",
+                "housenumber": "Erf 235",
+                "street": "Park Street",
+                "postalcode": "12001",
+                "confidence": 1,
+                "match_type": "exact",
+                "accuracy": "point",
+                "country": "Namibia",
+                "country_gid": "whosonfirst:country:85632535",
+                "country_a": "NAM",
+                "region": "Otjozondjupa",
+                "region_gid": "whosonfirst:region:85675217",
+                "region_a": "OD",
+                "county": "Otjiwarongo",
+                "county_gid": "whosonfirst:county:421186163",
+                "county_a": "OW",
+                "continent": "Africa",
+                "continent_gid": "whosonfirst:continent:102191573",
+                "label": "Museum of Namibian Fashion, OD, Namibia",
+                "addendum": {
+                    "osm": {
+                        "website": "https://www.namibianfashion.com/"
+                    }
+                }
+            },
+            "bbox": [
+                16.6455166,
+                -20.467347,
+                16.6456484,
+                -20.4671985
+            ]
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.848413,
+                    -28.11896
+                ]
+            },
+            "properties": {
+                "id": "way/1088009857",
+                "gid": "openstreetmap:venue:way/1088009857",
+                "layer": "venue",
+                "source": "openstreetmap",
+                "source_id": "way/1088009857",
+                "name": "Namibian Clearing Agency",
+                "confidence": 1,
+                "match_type": "exact",
+                "accuracy": "point",
+                "country": "Namibia",
+                "country_gid": "whosonfirst:country:85632535",
+                "country_a": "NAM",
+                "region": "Karas",
+                "region_gid": "whosonfirst:region:85675195",
+                "region_a": "KA",
+                "county": "Karas",
+                "county_gid": "whosonfirst:county:1108785097",
+                "county_a": "KA",
+                "continent": "Africa",
+                "continent_gid": "whosonfirst:continent:102191573",
+                "label": "Namibian Clearing Agency, KA, Namibia",
+                "addendum": {
+                    "osm": {
+                        "website": "https://namibianclearingagency.com/"
+                    }
+                }
+            },
+            "bbox": [
+                19.8479517,
+                -28.1194071,
+                19.8488011,
+                -28.1186403
+            ]
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    17.090719,
+                    -22.541317
+                ]
+            },
+            "properties": {
+                "id": "node/6720040964",
+                "gid": "openstreetmap:venue:node/6720040964",
+                "layer": "venue",
+                "source": "openstreetmap",
+                "source_id": "node/6720040964",
+                "name": "Namibian Breastmilk Bank",
+                "confidence": 1,
+                "match_type": "exact",
+                "accuracy": "point",
+                "country": "Namibia",
+                "country_gid": "whosonfirst:country:85632535",
+                "country_a": "NAM",
+                "region": "Khomas",
+                "region_gid": "whosonfirst:region:85675205",
+                "region_a": "KH",
+                "locality": "Windhoek",
+                "locality_gid": "whosonfirst:locality:1141909361",
+                "continent": "Africa",
+                "continent_gid": "whosonfirst:continent:102191573",
+                "label": "Namibian Breastmilk Bank, Windhoek, KH, Namibia",
+                "addendum": {
+                    "osm": {
+                        "website": "https://www.nbmb.com.na"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    17.086323,
+                    -22.560747
+                ]
+            },
+            "properties": {
+                "id": "way/751007763",
+                "gid": "openstreetmap:venue:way/751007763",
+                "layer": "venue",
+                "source": "openstreetmap",
+                "source_id": "way/751007763",
+                "name": "Franco Namibian Cultural Centre",
+                "housenumber": "118",
+                "street": "Robert Mugabe Avenue",
+                "confidence": 1,
+                "match_type": "exact",
+                "accuracy": "point",
+                "country": "Namibia",
+                "country_gid": "whosonfirst:country:85632535",
+                "country_a": "NAM",
+                "region": "Khomas",
+                "region_gid": "whosonfirst:region:85675205",
+                "region_a": "KH",
+                "locality": "Windhoek",
+                "locality_gid": "whosonfirst:locality:1141909361",
+                "continent": "Africa",
+                "continent_gid": "whosonfirst:continent:102191573",
+                "label": "Franco Namibian Cultural Centre, Windhoek, KH, Namibia",
+                "addendum": {
+                    "osm": {
+                        "website": "http://www.fncc.org.na/"
+                    }
+                }
+            },
+            "bbox": [
+                17.0860616,
+                -22.56081,
+                17.0865843,
+                -22.5606842
+            ]
+        }
+    ],
+    "bbox": [
+        14.516254,
+        -28.1194071,
+        19.8488011,
+        -20.459019
+    ]
+}

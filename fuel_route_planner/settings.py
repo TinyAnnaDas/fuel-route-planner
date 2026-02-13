@@ -132,3 +132,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ORS_API_KEY = env("ORS_API_KEY", default="")
+GEOAPIFY_KEY = env("GEOAPIFY_KEY", default="")
