@@ -11,6 +11,9 @@ env/
 # Django / SQLite
 db.sqlite3
 *.sqlite3
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
 
 # Environment & secrets
 .env
@@ -31,3 +34,9 @@ build/
 .vscode/
 .idea/
 
+# Test / tool caches
+.coverage
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
