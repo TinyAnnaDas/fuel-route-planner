@@ -6,8 +6,8 @@ import requests
 
 from routes.models import FuelStation
 
-# GEOCODE_URL = "https://api.openrouteservice.org/geocode/search"
-GEOCODE_URL = "https://api.geoapify.com/v1/geocode/search"
+GEOCODE_URL = "https://api.openrouteservice.org/geocode/search"
+# GEOCODE_URL = "https://api.geoapify.com/v1/geocode/search"
 
 RATE_LIMIT_DELAY = 0.65  # seconds between requests (stay under 100/min)
 
@@ -26,6 +26,7 @@ def geocode_address(text: str, country: str = "USA"):
     }
     try:
         resp = requests.get(GEOCODE_URL, params=params, timeout=10)
+        print(resp.request.url)  # full U
         resp.raise_for_status()
         data = resp.json()
     except (requests.RequestException, ValueError) as e:
