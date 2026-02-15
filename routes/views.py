@@ -1,10 +1,9 @@
-from django.shortcuts import render
+import math
 
-# Create your views here.
 from django.http import JsonResponse
 
 from routes.services.routing import get_route
-from routes.services.optimizer import get_optimal_fuel_stops
+from routes.services.optimizer import get_optimal_fuel_stops, VEHICLE_RANGE_KM
 
 
 def plan_route(request):
@@ -34,7 +33,8 @@ def plan_route(request):
     except Exception as e:
         return JsonResponse({"error": f"Routing failed: {e}"}, status=502)
 
-    stops = get_optimal_fuel_stops(polyline, max_stops=1)
+    max_stops = max(1, math.ceil(total_km / VEHICLE_RANGE_KM))
+    stops = get_optimal_fuel_stops(polyline, total_km=total_km, range_km=VEHICLE_RANGE_KM, max_stops=max_stops)
     fuel_stops = [
         {
             "id": s.id,

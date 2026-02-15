@@ -1,40 +1,50 @@
 # Fuel Route Planner API
 
-A Django REST API that returns a route between two US locations, optimal fuel-stop recommendations along the route (cost-effective, 500-mile vehicle range), and total estimated fuel cost at 10 MPG. Built for Django 6 with Django REST Framework.
+A Django REST API that returns a route between two US locations and optimal fuel-stop recommendations along the route. Uses a 500-mile vehicle range, cost-effective stops from the fuel-prices dataset, and a single routing call plus geocoding via OpenRouteService.
 
 ## Features
 
-- **Input**: Start and finish locations (USA only).
+- **Input**: Start and finish locations (USA; addresses or place names).
 - **Output**:
-  - Route geometry (for map display).
-  - Optimal fuel-up locations along the route (cost-effective, based on provided fuel prices).
-  - Multiple fuel stops when the route exceeds 500 miles range.
-  - Total money spent on fuel (assuming 10 miles per gallon).
-- **Routing**: Uses a free routing API (minimal calls; one route request is the goal).
-- **Fuel data**: Uses the provided fuel-prices CSV for retail prices and station locations.
+  - Route geometry as a polyline (list of `[lat, lon]` for map display).
+  - Total route distance in km.
+  - Optimal fuel stops along the route (one per range segment, cheapest in segment).
+- **Routing**: One ORS Directions call per request; origin/destination geocoded via ORS Geocode (two calls).
+- **Fuel data**: Loaded from CSV into the `FuelStation` model; optimizer selects stations near the route by segment and picks the cheapest in each.
 
 ## Tech Stack
 
-- **Django** 6.x (latest stable)
+- **Django** 6.x
 - **Django REST Framework**
 - **django-environ** for configuration
-- **OpenRouteService (ORS)** for routing and map geometry ([openrouteservice.org](https://openrouteservice.org/) — free tier available)
+- **OpenRouteService (ORS)** for geocoding and driving directions ([openrouteservice.org](https://openrouteservice.org/) — free tier available)
+- **PostgreSQL** (via psycopg2-binary) for fuel-station data
+- **numpy**, **scipy**, **polyline**, **requests**
 
 ## Project Structure
 
 ```text
-![1770962542814](image/README/1770962542814.png)![1770962545678](image/README/1770962545678.png)![1770962550196](image/README/1770962550196.png)fuel_route_planner/
-├── fuel_route_planner/     # Project settings, URLs
+fuel_route_planner/
+├── fuel_route_planner/     # Project settings, root URLs
 ├── routes/                 # Main app
-│   ├── data/              # Fuel prices CSV
+│   ├── data/
+│   │   └── fuel-prices.csv
+│   ├── management/commands/
+│   │   ├── load_fuel_prices.py
+│   │   ├── geocode_fuel_stations.py
+│   │   └── delete_non_us_states.py
 │   ├── services/
-│   │   ├── routing.py     # ORS API client (route + geometry)
-│   │   ├── fuel.py        # Fuel data loader + nearest-station lookup
-│   │   └── optimizer.py   # Fuel-stop optimization (500 mi range, cost)
-│   ├── serializers.py     # Request/response validation
-│   └── views.py           # API endpoint(s)
+│   │   ├── geocode.py      # ORS geocode (address → lat, lon)
+│   │   ├── routing.py      # ORS Directions (route + polyline)
+│   │   ├── fuel.py         # Fuel data: nearest stations along route
+│   │   └── optimizer.py    # Fuel-stop selection (500 mi range, by segment)
+│   ├── models.py           # FuelStation
+│   ├── serializers.py
+│   ├── views.py            # plan_route endpoint
+│   └── urls.py
 ├── manage.py
-├── pyproject.toml / uv.lock
+├── pyproject.toml
+├── uv.lock
 └── .env                    # Not committed; see below
 ```
 
@@ -44,6 +54,7 @@ A Django REST API that returns a route between two US locations, optimal fuel-st
 
 - Python 3.13+
 - [uv](https://docs.astral.sh/uv/) (recommended) or pip
+- PostgreSQL (for fuel-station data)
 
 ### Install dependencies
 
@@ -57,13 +68,21 @@ pip install -e .
 
 ### Environment variables
 
-Copy the example below into a `.env` file in the project root (do not commit `.env`):
+Create a `.env` file in the project root (do not commit it):
 
 ```env
 # Django
 DJANGO_SECRET_KEY=your-secret-key
 DJANGO_DEBUG=True
 DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+
+# Database (PostgreSQL)
+DB_ENGINE=django.db.backends.postgresql
+DB_NAME=fuel_route_planner
+DB_USER=your_user
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_PORT=5432
 
 # OpenRouteService (free API key at https://openrouteservice.org/dev/#/signup)
 ORS_API_KEY=your-ors-api-key
@@ -75,6 +94,14 @@ Generate a secret key:
 python -c "import secrets; print(secrets.token_urlsafe(50))"
 ```
 
+### Database and fuel data
+
+```bash
+python manage.py migrate
+python manage.py load_fuel_prices          # Load routes/data/fuel-prices.csv
+python manage.py geocode_fuel_stations    # Optional: fill lat/lon for stations
+```
+
 ### Run the server
 
 ```bash
@@ -83,28 +110,42 @@ python manage.py runserver
 
 ## API
 
-### Intended contract (for implementation and Postman/Loom demo)
+### Endpoint
 
-- **Endpoint**: e.g. `POST /api/plan/` or `GET /api/plan/?start=...&finish=...` (depending on your implementation).
-- **Input**: Start and finish (addresses or coordinates, USA only).
-- **Response** (JSON):
-  - `route`: Geometry (e.g. GeoJSON or encoded polyline) for drawing the route on a map.
-  - `fuel_stops`: List of recommended stop locations with name, address, price per gallon, and gallons needed (or cost per stop).
-  - `total_fuel_cost`: Total estimated fuel cost (10 MPG over the route distance).
+- **URL**: `POST /api/plan-route/` or `GET /api/plan-route/?origin=...&destination=...`
+- **Methods**: GET (query params) or POST (JSON body with `origin` / `origin_address` and `destination` / `destination_address`).
 
-Routing should call the external map/routing API as few times as possible (ideally one call; two or three acceptable).
+### Request
+
+- **GET**: `origin` and `destination` (or `origin_address` / `destination_address`) as query parameters.
+- **POST**: JSON body, e.g. `{"origin": "New York, NY", "destination": "Los Angeles, CA"}`.
+
+### Response (JSON)
+
+- **`polyline`**: List of `[lat, lon]` for drawing the route.
+- **`total_km`**: Total route distance in kilometers.
+- **`fuel_stops`**: List of recommended stops, each with:
+  - `id`, `name`, `price` (retail price per gallon), `lat`, `lon`.
+
+Errors: `400` (missing/invalid input, geocode failure), `502` (routing failure).
+
+### Example
+
+```bash
+curl "http://localhost:8000/api/plan-route/?origin=Chicago,IL&destination=Dallas,TX"
+```
 
 ## Fuel Data
 
-- **File**: `routes/data/fuel-prices-for-be-assessment.csv`
-- **Columns**: OPIS Truckstop ID, Truckstop Name, Address, City, State, Rack ID, **Retail Price**
-- Used to choose cost-effective fuel stops along the route and to compute total fuel cost.
+- **File**: `routes/data/fuel-prices.csv`
+- **Columns**: OPIS Truckstop ID, Truckstop Name, Address, City, State, Rack ID, Retail Price. After geocoding, stations have latitude/longitude for proximity to the route.
+- **Optimizer**: 500-mile range; one stop per segment; within each segment the cheapest station near the route is chosen.
 
 ## Assignment Deliverables
 
 - **Code**: This repository.
-- **Loom (≤5 min)**: Use Postman (or similar) to demonstrate the API, plus a short overview of the codebase.
-- **Performance**: API responds quickly; minimal calls to the external routing API.
+- **Loom (≤5 min)**: Use Postman (or similar) to demonstrate the API and a short overview of the codebase.
+- **Performance**: Single directions call per plan; geocoding limited to origin and destination.
 
 ## License
 

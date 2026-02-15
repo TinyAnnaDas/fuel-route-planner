@@ -2,8 +2,7 @@
 
 # routes/services/routing.py
 """Get driving route from A to B (one Directions call, addresses accepted)."""
-from typing import List, Tuple, Optional
-import os
+from typing import List, Tuple
 import requests
 
 def _decode_polyline(encoded: str) -> List[Tuple[float, float]]:

@@ -1,4 +1,5 @@
 #  Fuel data loader + KD-tree lookup
+import math
 from typing import List, Tuple, Optional
 
 import numpy as np
@@ -8,6 +9,27 @@ from scipy.spatial import KDTree
 from routes.models import FuelStation
 
 EARTH_RADIUS_KM = 6371.0
+
+
+def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """Distance in km between two (lat, lon) points."""
+    a = math.radians(lat2 - lat1)
+    b = math.radians(lon2 - lon1)
+    x = math.sin(a / 2) ** 2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(b / 2) ** 2
+    return 2 * EARTH_RADIUS_KM * math.asin(math.sqrt(x))
+
+
+def cumulative_distances_km(points: List[Tuple[float, float]]) -> List[float]:
+    """Cumulative distance in km from first point. Returns [0, d01, d01+d12, ...]."""
+    if not points:
+        return []
+    if len(points) == 1:
+        return [0.0]
+    out = [0.0]
+    for i in range(1, len(points)):
+        d = haversine_km(points[i - 1][0], points[i - 1][1], points[i][0], points[i][1])
+        out.append(out[-1] + d)
+    return out
 
 
 class FuelStationKDTree:
